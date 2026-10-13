@@ -312,7 +312,6 @@ physical_constants_dictionary:
             prec: double
             type: formula
             uncertainty: exact
-            reference: NIST_CODATA2022
             description: "
               Gas constant used in the ideal gas law. It is equivalent to
               Boltzmann's constant espressed in J mol-1 K-1.
@@ -358,7 +357,6 @@ physical_constants_dictionary:
             units: kg mol-1
             prec: double
             type: formula
-            reference: IUPAC1997
             description: "
               Derived from IUPAC standard atomic weights as
               carbon_molar_mass_reference + 2*oxygen_molar_mass_reference.
@@ -426,7 +424,6 @@ physical_constants_dictionary:
             prec: double
             type: formula
             uncertainty: exact
-            reference: GRS80
             description: "
               Defined as f = (semimajor_axis - semiminor_axis) / semimajor_axis.
               Derived constant.
@@ -437,7 +434,6 @@ physical_constants_dictionary:
             prec: double
             type: formula
             uncertainty: exact
-            reference: GRS80
             description: "
               Defined as 1/f. Derived constant.
             "
@@ -447,7 +443,6 @@ physical_constants_dictionary:
             prec: double
             type: formula
             uncertainty: exact
-            reference: GRS80
             description: "
               Derived constant. Equal to (2 semimajor_axis + semiminor_axis) / 3.
             "
@@ -612,7 +607,6 @@ physical_constants_dictionary:
             units: J kg-1
             prec: double
             type: formula
-            reference: Smithsonian1951
             description: "
               Derived constant. Defined as latent_heat_of_fusion_reference +
               latent_heat_of_vaporization_reference.
@@ -648,7 +642,6 @@ physical_constants_dictionary:
             units: J kg-1 K-1
             prec: double
             type: formula
-            reference: US_StdAtm_1976
             description: "
               Derived constant. Defined as molar_gas_constant /
               dry_air_molar_mass_reference.
@@ -658,7 +651,6 @@ physical_constants_dictionary:
             units: J kg-1 K-1
             prec: double
             type: formula
-            reference: US_StdAtm_1976
             description: "
               Derived constant. Defined as molar_gas_constant /
               water_vapor_molar_mass_reference.
@@ -668,7 +660,6 @@ physical_constants_dictionary:
             units: kg m-3
             prec: double
             type: formula
-            reference: US_StdAtm_1976
             description: "
               Derived constant. Defined as standard_atmosphere /
               (dry_air_specific_gas_constant_reference *
@@ -833,7 +824,6 @@ physical_constants_dictionary:
             units: m2 s-1
             prec: double
             type: formula
-            reference: CuffeyPaterson2010
             description: "
               Derived constant. Defined as
               sea_ice_thermal_conductivity_reference /

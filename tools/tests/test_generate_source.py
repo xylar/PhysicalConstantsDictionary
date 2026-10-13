@@ -222,12 +222,74 @@ class TestGenerateFileIntegration(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "not included in the selected groups"):
                 gs.generate_file('cxx', ['earth_atmosphere'], str(out))
 
+    def test_derived_constants_have_no_reference_in_generated_comment(self):
+        # A derived constant's value isn't taken from a single cited source,
+        # so its generated comment should show units (if any) but never the
+        # 'reference' field; 'reference' is still kept on the pcd.yaml entry
+        # itself, just not echoed into the generated file.
+        with tempfile.TemporaryDirectory() as tmp:
+            cxx_out = pathlib.Path(tmp) / 'pcd_const.h'
+            gs.generate_file('cxx', None, str(cxx_out))
+            cxx_text = cxx_out.read_text(encoding='utf-8')
+
+        for line in cxx_text.splitlines():
+            if 'molar_gas_constant = (avogadro_constant' in line:
+                self.assertIn('// [J mol-1 K-1]', line)
+                self.assertNotIn('NIST_CODATA2022', line)
+                break
+        else:
+            self.fail('molar_gas_constant declaration not found')
+
+        # flattening has no units either, so it should have no trailing
+        # comment at all.
+        for line in cxx_text.splitlines():
+            if 'double flattening = ' in line:
+                self.assertNotIn('//', line)
+                break
+        else:
+            self.fail('flattening declaration not found')
+
+    def test_non_derived_constants_keep_their_reference_in_generated_comment(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            out = pathlib.Path(tmp) / 'pcd_const.h'
+            gs.generate_file('cxx', None, str(out))
+            text = out.read_text(encoding='utf-8')
+
+        for line in text.splitlines():
+            if 'double avogadro_constant = ' in line:
+                self.assertIn('NIST_CODATA2022', line)
+                break
+        else:
+            self.fail('avogadro_constant declaration not found')
+
+    def test_format_constant_reference_is_none_only_for_formula_entries(self):
+        _, _, _, all_items, _ = gs.load_constants(None)
+        for it in all_items:
+            _, _, r = gs.format_constant('cxx', it)
+            if it['tree'] is not None:
+                self.assertIsNone(r, f"formula entry '{it['name']}' should have no reference")
+            else:
+                self.assertIsNotNone(r, f"value entry '{it['name']}' should keep its reference")
+
     def test_formula_entries_are_tagged_type_formula_in_yaml(self):
         _, _, _, all_items, _ = gs.load_constants(None)
         for it in all_items:
             if it['tree'] is not None:
                 self.assertEqual(it['entry'].get('type'), 'formula',
                                  f"derived constant '{it['name']}' should have type: formula")
+
+    def test_formula_entries_have_no_reference_field_in_yaml(self):
+        # A derived constant's value isn't taken from a single cited
+        # source, so its pcd.yaml entry shouldn't carry a 'reference'
+        # field at all; a value entry still must.
+        _, _, _, all_items, _ = gs.load_constants(None)
+        for it in all_items:
+            if it['tree'] is not None:
+                self.assertNotIn('reference', it['entry'],
+                                 f"derived constant '{it['name']}' should have no reference field")
+            else:
+                self.assertIn('reference', it['entry'],
+                              f"value constant '{it['name']}' should keep its reference field")
 
     def test_every_constant_defines_exactly_one_of_value_or_formula(self):
         _, _, _, all_items, _ = gs.load_constants(None)

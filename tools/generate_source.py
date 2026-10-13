@@ -340,10 +340,16 @@ def format_constant(lang, item):
     list of one or more physical lines (more than one only for f90
     declarations that had to be continued to stay under the line-length
     limit).
+
+    'reference' is None for a derived (formula-based) constant: its value
+    isn't taken directly from a single cited source, so citing one of its
+    dependencies' references next to it in the generated file would be
+    misleading. pcd.yaml entries that have a 'formula' accordingly have no
+    'reference' field at all.
     """
     entry = item['entry']
     n = item['name']
-    r = entry['reference']
+    r = None if item['tree'] is not None else entry['reference']
     u = entry.get('units', 'none')
 
     if item['tree'] is not None:
@@ -492,7 +498,17 @@ def generate_file(lang, groups, filename):
 
             last = code_lines[-1]
             units_formatted = format_units(u)
-            comment = f'{comment_char} {units_formatted} {r}' if units_formatted else f'{comment_char} {r}'
+            if r is None:
+                # Derived (formula-based) constant: no single reference
+                # applies, so only show units, if any, with no comment at
+                # all when there are none either.
+                comment = f'{comment_char} {units_formatted}' if units_formatted else None
+            else:
+                comment = f'{comment_char} {units_formatted} {r}' if units_formatted else f'{comment_char} {r}'
+
+            if comment is None:
+                ofile.write(f'{last}\n')
+                continue
 
             pad = padding
             if lang == 'f90' and (max(len(last), pad) + len(comment)) > _F90_LINE_LIMIT:

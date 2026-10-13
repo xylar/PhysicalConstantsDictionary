@@ -21,6 +21,13 @@ An entry in `pcd.yaml` must define exactly one of `value` or `formula`:
 An entry's `type` should be `formula` when it has a `formula`, and `strict`
 (or another appropriate value) when it has a plain `value`.
 
+A derived constant's value isn't taken from a single cited source, so a
+`formula` entry has no `reference` field: omit it from the `pcd.yaml` entry
+entirely. Anyone who wants to know where the constants a formula uses came
+from can follow the formula to their own `reference` entries. The generated
+file's trailing comment for a `formula` entry correspondingly shows only its
+units (when it has any), with no reference.
+
 `generate_source.py` never evaluates a `formula` itself: it validates that the
 expression only uses arithmetic operators and known constant names, translates
 it into the equivalent C++/Fortran expression, and lets the compiler compute
