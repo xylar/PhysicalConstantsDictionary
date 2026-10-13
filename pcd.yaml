@@ -10,7 +10,7 @@
 #
 
 physical_constants_dictionary:
-  version_number: 0.1.0
+  version_number: 0.1.1
   institution: E3SM Project
   description: Community-based dictionary for consistent physical constant sets
   contact: E3SM Project
@@ -310,7 +310,7 @@ physical_constants_dictionary:
             formula: avogadro_constant * boltzmann_constant
             units: J mol-1 K-1
             prec: double
-            type: strict
+            type: formula
             uncertainty: exact
             reference: NIST_CODATA2022
             description: "
@@ -357,7 +357,7 @@ physical_constants_dictionary:
             formula: carbon_molar_mass_reference + 2 * oxygen_molar_mass_reference
             units: kg mol-1
             prec: double
-            type: strict
+            type: formula
             reference: IUPAC1997
             description: "
               Derived from IUPAC standard atomic weights as
@@ -424,7 +424,7 @@ physical_constants_dictionary:
             formula: (semimajor_axis - semiminor_axis) / semimajor_axis
             units: none
             prec: double
-            type: strict
+            type: formula
             uncertainty: exact
             reference: GRS80
             description: "
@@ -435,7 +435,7 @@ physical_constants_dictionary:
             formula: 1 / flattening
             units: none
             prec: double
-            type: strict
+            type: formula
             uncertainty: exact
             reference: GRS80
             description: "
@@ -445,7 +445,7 @@ physical_constants_dictionary:
             formula: (2 * semimajor_axis + semiminor_axis) / 3
             units: m
             prec: double
-            type: strict
+            type: formula
             uncertainty: exact
             reference: GRS80
             description: "
@@ -611,7 +611,7 @@ physical_constants_dictionary:
             formula: latent_heat_of_fusion_reference + latent_heat_of_vaporization_reference
             units: J kg-1
             prec: double
-            type: strict
+            type: formula
             reference: Smithsonian1951
             description: "
               Derived constant. Defined as latent_heat_of_fusion_reference +
@@ -647,7 +647,7 @@ physical_constants_dictionary:
             formula: molar_gas_constant / dry_air_molar_mass_reference
             units: J kg-1 K-1
             prec: double
-            type: strict
+            type: formula
             reference: US_StdAtm_1976
             description: "
               Derived constant. Defined as molar_gas_constant /
@@ -657,7 +657,7 @@ physical_constants_dictionary:
             formula: molar_gas_constant / water_vapor_molar_mass_reference
             units: J kg-1 K-1
             prec: double
-            type: strict
+            type: formula
             reference: US_StdAtm_1976
             description: "
               Derived constant. Defined as molar_gas_constant /
@@ -667,7 +667,7 @@ physical_constants_dictionary:
             formula: standard_atmosphere / (dry_air_specific_gas_constant_reference * pure_water_freezing_temperature_reference)
             units: kg m-3
             prec: double
-            type: strict
+            type: formula
             reference: US_StdAtm_1976
             description: "
               Derived constant. Defined as standard_atmosphere /
@@ -832,7 +832,7 @@ physical_constants_dictionary:
             formula: sea_ice_thermal_conductivity_reference / (sea_ice_density_reference * sea_ice_specific_heat_capacity_reference)
             units: m2 s-1
             prec: double
-            type: strict
+            type: formula
             reference: CuffeyPaterson2010
             description: "
               Derived constant. Defined as

@@ -18,6 +18,9 @@ An entry in `pcd.yaml` must define exactly one of `value` or `formula`:
     formula: avogadro_constant * boltzmann_constant
   ```
 
+An entry's `type` should be `formula` when it has a `formula`, and `strict`
+(or another appropriate value) when it has a plain `value`.
+
 `generate_source.py` never evaluates a `formula` itself: it validates that the
 expression only uses arithmetic operators and known constant names, translates
 it into the equivalent C++/Fortran expression, and lets the compiler compute

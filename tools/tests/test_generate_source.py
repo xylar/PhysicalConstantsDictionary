@@ -222,6 +222,13 @@ class TestGenerateFileIntegration(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "not included in the selected groups"):
                 gs.generate_file('cxx', ['earth_atmosphere'], str(out))
 
+    def test_formula_entries_are_tagged_type_formula_in_yaml(self):
+        _, _, _, all_items, _ = gs.load_constants(None)
+        for it in all_items:
+            if it['tree'] is not None:
+                self.assertEqual(it['entry'].get('type'), 'formula',
+                                 f"derived constant '{it['name']}' should have type: formula")
+
     def test_every_constant_defines_exactly_one_of_value_or_formula(self):
         _, _, _, all_items, _ = gs.load_constants(None)
         self.assertGreater(len(all_items), 0)
