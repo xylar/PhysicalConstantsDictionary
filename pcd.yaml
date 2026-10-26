@@ -725,12 +725,8 @@ physical_constants_dictionary:
             uncertainty: exact
             reference: TEOS10_2010
             description: "
-              TEOS-10 specific heat capacity c_p^0 used with Conservative
-              Temperature, defined as the ratio of potential enthalpy to
-              Conservative Temperature (TEOS-10 Eq. 3.3.3 and Table D.5).
-              Use this value, not seawater_specific_heat_capacity_reference,
-              to convert between heat content or heat fluxes and Conservative
-              Temperature.
+              TEOS-10 specific heat capacity c_p^0, the ratio of potential
+              enthalpy to Conservative Temperature.
             "
           - name: ocean_reference_salinity
             value: 34.7
