@@ -737,6 +737,28 @@ physical_constants_dictionary:
             description: "
               Reference ocean salinity.
             "
+          - name: ocean_reference_salinity_teos10
+            value: 35.16504
+            units: g kg-1
+            prec: double
+            type: strict
+            uncertainty: exact
+            reference: TEOS10_2010
+            description: "
+              TEOS-10 Standard Ocean Reference Salinity S_SO, the Reference
+              Salinity of seawater with a Practical Salinity of 35.
+            "
+          - name: reference_salinity_per_practical_salinity_teos10
+            formula: ocean_reference_salinity_teos10 / 35
+            units: g kg-1
+            prec: double
+            type: formula
+            uncertainty: exact
+            description: "
+              TEOS-10 factor u_PS converting Practical Salinity to Reference
+              Salinity. Derived constant. Defined as
+              ocean_reference_salinity_teos10 / 35.
+            "
           - name: speed_of_sound_in_seawater_reference
             value: 1500.0
             units: m s-1
